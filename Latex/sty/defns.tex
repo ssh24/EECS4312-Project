@@ -1,0 +1,113 @@
+\usepackage[top=4cm,bottom=4cm,left=3cm,right=3cm,asymmetric]{geometry}
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Begin paragraphs with an empty line rather than an indent
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+% Listings needs package courier
+\usepackage{listings} % Needs 
+\usepackage{courier}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{url}
+
+\usepackage{sty/bsymb} %% Event-B symbols
+\usepackage{sty/eventB} %% REQ and ENV
+\usepackage{sty/calculation}
+
+%Maths
+\usepackage{amssymb,amsmath}
+\def\Fl{\mathbb{F}}
+\def\Rl{\mathbb{R}}
+\def\Nl{\mathbb{N}}
+\def\Bl{\mathbb{B}}
+\def\St{\mathbb{S}}
+\newcommand{\ovr}{\upharpoonright}
+\newcommand{\var}[1]{\textit{#1}}
+%Useful definitions
+\newcommand{\mv}[1]{\textit{m\_#1}}
+\newcommand{\cv}[1]{\textit{c\_#1}}
+\newcommand{\degree}[1]{^{\circ}\mathrm{#1}}
+%\newcommand{\comment}[1]{{\footnotesize \quad\texttt{--}\textrm{#1}}}
+\newcommand{\im}[1]{i\texttt{-\!#1}}
+
+\usepackage[headsepline]{scrpage2}
+\pagestyle{scrheadings}
+\ihead[]{\small EECS4312 Report1}
+\ohead[]{\small \thepage}
+\cfoot[]{}
+\ofoot[]{}
+
+
+%%%%PVS environment%%%%%%%%%%%%%%%%%%%
+\lstnewenvironment{pvs}[1][]
+    {\lstset{#1,captionpos=b,language=pvs,
+    mathescape=true,
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    frame=single,
+    % numberstyle=\tiny\color{gray},
+    % backgroundcolor=\color{lightgray},
+    firstnumber=auto
+    }}
+    {}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+%%%%Verbatim environment%%%%%%%%%%%%%%%%%%%
+\lstnewenvironment{code}[1][]
+    {\lstset{#1,captionpos=b,
+    mathescape=true,
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    frame=single,
+    % numberstyle=\tiny\color{gray},
+    % backgroundcolor=\color{lightgray},
+    firstnumber=auto
+    }}
+    {}
+
+% \newenvironment{boxed}[1]
+%    {\begin{center}
+%    #1\\[1ex]
+%    \begin{tabular}{|p{0.9\textwidth}|}
+%    \hline\\
+%    }
+%    { 
+%    \\\\\hline
+%    \end{tabular} 
+%    \end{center}
+%    }
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ %Text in a box
+\newenvironment{textbox}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+
+\usepackage{hyperref}
+
+%Highlight \hl{}
+\usepackage{soul}
+
+\usepackage{enumitem}
+\newlist{mylist}{itemize}{1}
+\setlist[mylist]{label=\textbullet,leftmargin=1cm,nosep}
+
+\usepackage{multirow}
+
+% Reduce space between figure and caption
+%\usepackage{caption}
+%\captionsetup[table]{font=small,skip=0pt}     %% Adjust here
+%or equivalently 
+\usepackage[font=small,skip=4pt]{caption}
