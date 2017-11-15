@@ -100,8 +100,59 @@ Obviously when dealing with dangerous materials is very important to ensure that
 
 \subsection{Use Case Textual Description}
 
+Below is the textual use case description of a following scenario:
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{\underline {Use Case:} } Move a container, \emph{c}, to a new phase, \emph{p} & \textbf {\underline {Actors:} } Customer, Tracking Manager
+\\ \textbf{\underline {Scenario:} } Sunny Day &
+\\ \textbf{\underline {Precondition:} } &
+\\ a) Container \emph{c} exists in the plant. &
+\\ b) Container \emph{c} is not in phase \emph{p}. &
+\\ c) The material type of \emph{c} is in the list &
+\\ of acceptable materials of \emph{p}. &
+\\ \textbf{\underline {Postcondition:} } &
+\\ a) Container \emph{c} has been moved to phase \emph{p} &
+
+\\ \hline
+\textbf{Actor} &  \textbf{System Responses}
+\\ \hline &
+
+\\ 1. Customer chooses the option to move & 1. The System prompts the Customer
+\\ a container. & to enter the ID of the container to be 
+\\ & moved and the phase ID to be moved to.
+\\ &
+\\ 2. Customer enters the ID of the container to be & 2. System sends the input to the Tracking
+\\ moved and the ID of the phase to be moved to. & Manager for verification.
+\\ &
+\\ 3. Tracking Manager finds the following & 3. System responses OK and provides the
+\\ movement of container between phases is safe & status of the container to the
+\\ and approves the movement. & Customer and Tracking Manager.
+
+
+\\ \hline
+\end{tabular}
+\end{center}
+\caption {Use Case Textual Representation}
+\label{tbl:uctd}
+\end{table}
+
+
+\newpage
 \subsection{Use Case Diagram}
 
+Below is the use case diagram of the scenario described in the last page:
+\\
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=.9\textwidth]{images/move_container_uc.pdf}
+\end{center}
+\caption{Use Case Diagram}
+\label{fig:move_container_uc}
+\end{figure}
 
 \newpage
 \section{Acceptance Tests}
