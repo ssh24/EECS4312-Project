@@ -33,29 +33,28 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
-jspm_packages/
+# Compiled class file
+*.class
 
-# Typescript v1 declaration files
-typings/
+# Log file
+*.log
 
-# Optional npm cache directory
-.npm
+# BlueJ files
+*.ctxt
 
-# Optional eslint cache
-.eslintcache
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
-# Optional REPL history
-.node_repl_history
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
 
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
