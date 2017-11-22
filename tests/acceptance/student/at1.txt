@@ -1,0 +1,19 @@
+-- This is for testing mainly the correct movement of container in simple scenario
+-- it moves container c from phase p1 to p2
+
+-- create the tracker
+new_tracker(10, 5) 
+
+-- create two phases p1 and p2
+new_phase("p1", "packing", 4, <<glass, metal, plastic, liquid>>) 
+new_phase("p2", "crushing", 3, <<glass, metal, plastic>>)
+
+-- add several containers including container c
+new_container("c", [glass,   3.0], "p1")
+new_container("c2", [plastic,   4.0], "p1")
+new_container("c3", [metal,   3.0], "p2")
+new_container("c4", [liquid,   3.0], "p1")
+
+-- move container c from phase p1 to phase p2
+move_container("c", "p1", "p2")
+

@@ -1,0 +1,23 @@
+-- this mainly tests some incorrect inputs and error regarding mistyping pid when
+-- creating a new container
+
+-- create the tracker
+new_tracker(4, 2) 
+
+-- create two phases p1 and p2
+new_phase("p1", "packing", 4, <<glass, metal,metal, plastic, liquid>>) 
+new_phase("p2", "crushing", 3, <<glass, metal, plastic>>)
+new_phase("p3", "crushing", 3, <<metal,metal,metal,metal,metal>>)
+new_phase("p4", "crushing", 3, <<glass,glass, plastic, liquid>>)
+
+-- add several containers 
+new_container("c1", [glass,   1.2], " p1")
+new_container("c1", [glass,   1.2], "@p1")
+new_container("c1", [glass,   1.2], "p12")
+new_container("c1", [glass,   1.2], "p1")
+new_container("c2", [plastic,   1.5], "p1")
+new_container("c3", [metal,   0.5], "p2")
+
+
+
+
