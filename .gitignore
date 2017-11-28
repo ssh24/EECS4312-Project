@@ -6,6 +6,8 @@ tests/temp/
 *.scm
 *#
 
+*/*.toolbox
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
