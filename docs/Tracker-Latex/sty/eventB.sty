@@ -56,6 +56,48 @@
 \newcounter{reqc}
 \newcounter{envc}
 
+\newcommand{\rdescription}[3][0.4\textwidth]{
+  \medskip\refstepcounter{reqc}
+  \begin{center}
+    \begin{tabular}{|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|
+@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|}
+      \hline
+      & &\\
+      \textsf{REQ\arabic{reqc}} &
+      \begin{minipage}[c]{#1} 
+        #2
+      \end{minipage} 
+      &
+ \begin{minipage}[c]{0.2\textwidth} 
+ { \raggedright \footnotesize
+        #3}
+      \end{minipage} \\
+      \hline
+    \end{tabular}
+  \end{center}
+}
+
+\newcommand{\edescription}[3][0.4\textwidth]{
+  \medskip\refstepcounter{envc}
+  \begin{center}
+    \begin{tabular}{|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|
+@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|}
+      \hline
+      & &\\
+      \textsf{ENV\arabic{envc}} &
+      \begin{minipage}[c]{#1} 
+        #2
+      \end{minipage} 
+      &
+ \begin{minipage}[c]{0.2\textwidth} 
+ { \raggedright \footnotesize
+        #3}
+      \end{minipage} \\
+      \hline
+    \end{tabular}
+  \end{center}
+}
+
 %%%%% General requirement box: Provide a requirement box with label and
 %%%%%                          explanation text. The requirement counter is
 %%%%%                          used automatically.
@@ -98,48 +140,6 @@
  \begin{minipage}[c]{0.2\textwidth} 
  { \raggedright \footnotesize
         #4}
-      \end{minipage} \\
-      \hline
-    \end{tabular}
-  \end{center}
-}
-
-\newcommand{\rdescription}[3][0.4\textwidth]{
-  \medskip\refstepcounter{reqc}
-  \begin{center}
-    \begin{tabular}{|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|
-@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|}
-      \hline
-      & &\\
-      \textsf{REQ\arabic{reqc}} &
-      \begin{minipage}[c]{#1} 
-        #2
-      \end{minipage} 
-      &
- \begin{minipage}[c]{0.2\textwidth} 
- { \raggedright \footnotesize
-        #3}
-      \end{minipage} \\
-      \hline
-    \end{tabular}
-  \end{center}
-}
-
-\newcommand{\edescription}[3][0.4\textwidth]{
-  \medskip\refstepcounter{envc}
-  \begin{center}
-    \begin{tabular}{|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|
-@{\hspace{0.05\textwidth}}c@{\hspace{0.05\textwidth}}|}
-      \hline
-      & &\\
-      \textsf{ENV\arabic{envc}} &
-      \begin{minipage}[c]{#1} 
-        #2
-      \end{minipage} 
-      &
- \begin{minipage}[c]{0.2\textwidth} 
- { \raggedright \footnotesize
-        #3}
       \end{minipage} \\
       \hline
     \end{tabular}

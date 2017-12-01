@@ -1,0 +1,20 @@
+
+\NeedsTeXFormat{LaTeX2e}\relax
+\ProvidesPackage{question}[2011/07/18]
+
+\newcounter{questions}
+\newcommand{\question}{\refstepcounter{questions}\paragraph{Question 
+\arabic{questions}.}}
+\newcommand{\answer}[2][]{#1}
+\newcommand{\showanswers}{}
+
+\DeclareOption{solution}{
+
+  %%%%% 
+  % Macro for create a list of todos.
+  % Usage: \listoftodos
+  %%%%% 
+  \renewcommand{\answer}[2][]{ \paragraph{Answer.} #2 }
+}
+
+\ProcessOptions

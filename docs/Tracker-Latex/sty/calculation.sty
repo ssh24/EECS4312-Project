@@ -1,7 +1,7 @@
 \ProvidesPackage{calculation}
 
 	% Packages
-%\RequirePackage[retainorgcmds]{IEEEtrantools}
+\RequirePackage[retainorgcmds]{IEEEtrantools}
 
 \newcommand{\newkw}[3][\1]{ \newcommand{#2}{ #1{\textbf{#3}}} }
 
@@ -24,13 +24,13 @@
 %\newcommand{\definition}[2]{ \noindent #1: \qquad \qquad $#2$ }
 
 	% Operators
-\newcommand{\follows}{\Leftarrow}
-%\newcommand{\implies}{\Rightarrow}
+%\newcommand{\follows}{\Leftarrow}
+\renewcommand{\implies}{\Rightarrow}
 \newcommand{\up}{\uparrow}
 \newcommand{\down}{\downarrow}
 %\newcommand{\pow}{\0{\nearrow}}
-\newcommand{\true}{\text{true}}
-\newcommand{\false}{\text{false}}
+%\newcommand{\true}{\text{true}}
+%\newcommand{\false}{\text{false}}
 %\newcommand{\[}{\langle}
 %\newcommand{\]}{\rangle}
 
@@ -52,7 +52,9 @@
 \newcommand{\qcup}[3]{ \quant{\sqcup}{#1}{#2}{#3} }
 \newcommand{\qmu}{\quant{\mu}}
 \newcommand{\qnu}{\quant{\nu}}
-
+\newcommand{\qcount}{\quant{\#}}
+\newcommand{\qlambda}{\quant{\lambda}}
+\newcommand{\qfun}{\quant{\!\!\!\:}}
 	% Spacing
 \newcommand{\opspace}{\;}
 \newcommand{\0}[1]{\! #1 \!}

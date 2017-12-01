@@ -1,6 +1,8 @@
 \usepackage[top=4cm,bottom=4cm,left=3cm,right=3cm,asymmetric]{geometry}
-%\geometry{landscape}                % Activate for for rotated page geometry
-%\usepackage[parfill]{parskip}    % Begin paragraphs with an empty line rather than an indent
+%\geometry{landscape}
+  % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    
+  % Begin paragraphs with an empty line rather than an indent
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{graphicx}
 
@@ -18,6 +20,7 @@
 \usepackage{sty/bsymb} %% Event-B symbols
 \usepackage{sty/eventB} %% REQ and ENV
 \usepackage{sty/calculation}
+\usepackage{sty/mathpartir}
 
 %Maths
 \usepackage{amssymb,amsmath}
@@ -57,11 +60,25 @@
     {}
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
+%%%%PVS environment%%%%%%%%%%%%%%%%%%%
+\lstnewenvironment{events}[1][]
+    {\lstset{#1,captionpos=b,language=events,
+    mathescape=true,
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    frame=single,
+    % numberstyle=\tiny\color{gray},
+    % backgroundcolor=\color{lightgray},
+    firstnumber=auto
+    }}
+    {}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
 %%%%Verbatim environment%%%%%%%%%%%%%%%%%%%
 \lstnewenvironment{code}[1][]
     {\lstset{#1,captionpos=b,
     mathescape=true,
-    basicstyle=\small\ttfamily,
+    basicstyle=\footnotesize\ttfamily,
     numbers=none,
     frame=single,
     % numberstyle=\tiny\color{gray},
@@ -111,3 +128,43 @@
 %\captionsetup[table]{font=small,skip=0pt}     %% Adjust here
 %or equivalently 
 \usepackage[font=small,skip=4pt]{caption}
+
+% Indent equations
+%\setlength{\mathindent}{1cm}
+
+% Set the header
+
+%\afterpage{\clearpage}
+\usepackage{afterpage}
+\usepackage{fancyvrb}
+
+% Allow better table placement?
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}   
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+\usepackage{morefloats}
+\usepackage[section]{placeins}
+
+\newcommand{\pre}[1]{{#1}_{-1}}
+\newtheorem{defn}{Definition}%[section]
+\newtheorem{lemma}{Lemma}%[section]
+\newtheorem{theorem}{Theorem}%[section]
+
+%Sequents
+\usepackage{bussproofs}
+
+% Hide sections
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+
+% Needed for TLA
+\input{tla/tla-style.tex} % style file for TLA
+% Reduce space around equations
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+
+

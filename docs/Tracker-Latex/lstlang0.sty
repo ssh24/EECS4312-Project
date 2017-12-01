@@ -59,3 +59,22 @@ morecomment=[s]{/*}{*/},
 morestring=[b]",
 keywordstyle=\bfseries
 }[keywords, comments, strings]
+
+\lst@definelanguage{events}
+  {
+    morekeywords={system, type, TUPLE, ARRAY},
+    sensitive=false,
+    showstringspaces=false,
+    morecomment=[l]--,
+    morestring=[d]",
+    columns=fullflexible,
+    breaklines=true,
+    tabsize=3,
+    identifierstyle=\itshape,
+    commentstyle=\upshape,
+    stringstyle=\bfseries,
+    basicstyle=\small,
+    basicstyle=\footnotesize,
+    keywordstyle=\bfseries,
+  }[keywords,comments,strings]
+
