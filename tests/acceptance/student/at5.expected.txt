@@ -1,0 +1,443 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_container(" cid0",[metal, 3],"pid11")
+  state 1 e5: identifiers/names must start with A-Z, a-z or 0..9
+->new_container("cid0",[metal, 3],"pid11")
+  state 2 e9: phase identifier not in the system
+->new_container("cid0",[metal, -3],"pid11")
+  state 3 e9: phase identifier not in the system
+->new_container("cid0",[metal, 3],"pid11")
+  state 4 e9: phase identifier not in the system
+->new_tracker(15,5)
+  state 5 ok
+  max_phase_radiation: 15.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(15,15)
+  state 6 ok
+  max_phase_radiation: 15.00, max_container_radiation: 15.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_phase("pid1","STORING",4,<<glass, metal, plastic, liquid>>)
+  state 7 ok
+  max_phase_radiation: 15.00, max_container_radiation: 15.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid2","MELTING",10,<<glass, metal, plastic>>)
+  state 8 ok
+  max_phase_radiation: 15.00, max_container_radiation: 15.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:10,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid3","WASHING",3,<<glass, metal, plastic>>)
+  state 9 ok
+  max_phase_radiation: 15.00, max_container_radiation: 15.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:10,0,0.00,{glass,metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid4","DRAINING",2,<<liquid>>)
+  state 10 ok
+  max_phase_radiation: 15.00, max_container_radiation: 15.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:10,0,0.00,{glass,metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->new_tracker(10,5)
+  state 11 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:10,0,0.00,{glass,metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid2")
+  state 12 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->new_container("cid1",[metal, 3],"pid11")
+  state 13 e9: phase identifier not in the system
+->new_container("cid1",[metal, 3],"pid4")
+  state 14 e13: phase does not expect this container material
+->new_container("cid1",[metal, 3],"pid3")
+  state 15 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,1,3.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+->new_container("cid2",[plastic, 3],"pid3")
+  state 16 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,2,6.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+->new_container("cid3",[glass, 5],"pid3")
+  state 17 e12: this container will exceed phase safe radiation
+->new_container("cid3",[glass, 4],"pid3")
+  state 18 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+->new_container("cid4",[liquid, 5],"pid4")
+  state 19 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,1,5.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+->new_container("cid5",[liquid, 5],"pid4")
+  state 20 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+->new_container("cid6",[metal, 5],"pid4")
+  state 21 e11: this container will exceed phase capacity
+->new_container("cid5",[glass, -5],"pid4")
+  state 22 e10: this container identifier already in tracker
+->new_container("cid6",[plastic, 5],"pid4")
+  state 23 e11: this container will exceed phase capacity
+->new_container("cid7",[plastic, 5],"pid1")
+  state 24 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,5.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+->new_container("cid8",[metal, 1],"pid1")
+  state 25 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,2,6.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+    cid8->pid1->metal,1.00
+->new_container("cid9",[glass, 2],"pid1")
+  state 26 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,8.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+    cid8->pid1->metal,1.00
+    cid9->pid1->glass,2.00
+->new_container("cid10",[liquid, 1.9],"pid1")
+  state 27 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.90,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,10.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid10->pid1->liquid,1.90
+    cid2->pid3->plastic,3.00
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+    cid8->pid1->metal,1.00
+    cid9->pid1->glass,2.00
+->new_phase("pid5","DRAINING",2,<<liquid>>)
+  state 28 e1: current tracker is in use
+->remove_phase("pid1")
+  state 29 e1: current tracker is in use
+->remove_phase("cid1")
+  state 30 e1: current tracker is in use
+->remove_container("cid2")
+  state 31 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.90,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,2,7.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid10->pid1->liquid,1.90
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+    cid8->pid1->metal,1.00
+    cid9->pid1->glass,2.00
+->move_container("cid10","pid1","pid3")
+  state 32 e13: phase does not expect this container material
+->move_container("cid7","pid1","pid3")
+  state 33 e12: this container will exceed phase safe radiation
+->move_container("cid8","pid1","pid3")
+  state 34 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,8.90,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,8.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid10->pid1->liquid,1.90
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->new_container("cid11",[liquid, 1.9],"pid1")
+  state 35 e12: this container will exceed phase safe radiation
+->new_container("cid11",[liquid, 1.09],"pid1")
+  state 36 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.99,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,8.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid7->pid1->plastic,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->new_container("cid21",[liquid, 1.09],"pid1")
+  state 37 e11: this container will exceed phase capacity
+->remove_container("cid7")
+  state 38 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,4.99,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,8.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid3->pid3->glass,4.00
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->new_container("cid21",[liquid, 5.1],"pid1")
+  state 39 e14: container radiation capacity exceeded
+->new_container("cid21",[liquid, 5.01],"pid1")
+  state 40 e14: container radiation capacity exceeded
+->new_container("cid39",[liquid, 4.01],"pid1")
+  state 41 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,3,8.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,3.00
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid3->pid3->glass,4.00
+    cid39->pid1->liquid,4.01
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->remove_phase("cid1")
+  state 42 e1: current tracker is in use
+->remove_phase("pid1")
+  state 43 e1: current tracker is in use
+->remove_container("cid1")
+  state 44 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,2,5.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid3->pid3->glass,4.00
+    cid39->pid1->liquid,4.01
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->remove_container("cid2")
+  state 45 e15: this container identifier not in tracker
+->remove_container("cid3")
+  state 46 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,1,1.00,{glass,metal,plastic}
+    pid4->DRAINING:2,2,10.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid39->pid1->liquid,4.01
+    cid4->pid4->liquid,5.00
+    cid5->pid4->liquid,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->remove_container("cid4")
+  state 47 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,1,1.00,{glass,metal,plastic}
+    pid4->DRAINING:2,1,5.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid39->pid1->liquid,4.01
+    cid5->pid4->liquid,5.00
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->remove_container("cid5")
+  state 48 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,1,1.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid39->pid1->liquid,4.01
+    cid8->pid3->metal,1.00
+    cid9->pid1->glass,2.00
+->remove_container("cid6")
+  state 49 e15: this container identifier not in tracker
+->remove_container("cid7")
+  state 50 e15: this container identifier not in tracker
+->remove_container("cid8")
+  state 51 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,9.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid39->pid1->liquid,4.01
+    cid9->pid1->glass,2.00
+->remove_container("cid9")
+  state 52 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,7.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid10->pid1->liquid,1.90
+    cid11->pid1->liquid,1.09
+    cid39->pid1->liquid,4.01
+->remove_container("cid10")
+  state 53 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,2,5.10,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid11->pid1->liquid,1.09
+    cid39->pid1->liquid,4.01
+->remove_container("cid11")
+  state 54 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,4.01,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid39->pid1->liquid,4.01
+->remove_phase("pid1")
+  state 55 e1: current tracker is in use
+->remove_container("cid39")
+  state 56 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid1")
+  state 57 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid2")
+  state 58 e9: phase identifier not in the system
+->remove_phase("pid3")
+  state 59 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid4")
+  state 60 ok
+  max_phase_radiation: 10.00, max_container_radiation: 5.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(0,0)
+  state 61 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity

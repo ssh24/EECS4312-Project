@@ -1,0 +1,304 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_phase("pid1","STORING",4,<<glass, metal, plastic, liquid>>)
+  state 1 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid2","MELTING",1,<<metal, plastic>>)
+  state 2 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid3","WASHING",3,<<glass, metal, plastic>>)
+  state 3 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid4","DRAINING",2,<<liquid>>)
+  state 4 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->new_tracker(0,0)
+  state 5 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->new_tracker(5,2)
+  state 6 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->new_container("cid1",[metal, 2],"pid1")
+  state 7 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,2.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+->new_container("cid2",[plastic, 1],"pid1")
+  state 8 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,2,3.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+->new_container("cid3",[glass, 1.5],"pid1")
+  state 9 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,4.50,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid1->glass,1.50
+->new_container("cid4",[liquid, 0.5],"pid1")
+  state 10 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,5.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid1->glass,1.50
+    cid4->pid1->liquid,0.50
+->move_container("cid1","pid1","pid3")
+  state 11 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,3.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,1,2.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid1->glass,1.50
+    cid4->pid1->liquid,0.50
+->move_container("cid2","pid1","pid3")
+  state 12 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,2,2.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,2,3.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,2.00
+    cid2->pid3->plastic,1.00
+    cid3->pid1->glass,1.50
+    cid4->pid1->liquid,0.50
+->move_container("cid3","pid1","pid3")
+  state 13 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,0.50,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,3,4.50,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,2.00
+    cid2->pid3->plastic,1.00
+    cid3->pid3->glass,1.50
+    cid4->pid1->liquid,0.50
+->move_container("cid4","pid1","pid4")
+  state 14 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,3,4.50,{glass,metal,plastic}
+    pid4->DRAINING:2,1,0.50,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid3->metal,2.00
+    cid2->pid3->plastic,1.00
+    cid3->pid3->glass,1.50
+    cid4->pid4->liquid,0.50
+->move_container("cid1","pid3","pid2")
+  state 15 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,1,2.00,{metal,plastic}
+    pid3->WASHING:3,2,2.50,{glass,metal,plastic}
+    pid4->DRAINING:2,1,0.50,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->metal,2.00
+    cid2->pid3->plastic,1.00
+    cid3->pid3->glass,1.50
+    cid4->pid4->liquid,0.50
+->move_container("cid2","pid3","pid2")
+  state 16 e11: this container will exceed phase capacity
+->move_container("cid1","pid2","pid1")
+  state 17 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,2.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,2,2.50,{glass,metal,plastic}
+    pid4->DRAINING:2,1,0.50,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid3->plastic,1.00
+    cid3->pid3->glass,1.50
+    cid4->pid4->liquid,0.50
+->move_container("cid2","pid3","pid2")
+  state 18 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,2.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,1,1.00,{metal,plastic}
+    pid3->WASHING:3,1,1.50,{glass,metal,plastic}
+    pid4->DRAINING:2,1,0.50,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid2->plastic,1.00
+    cid3->pid3->glass,1.50
+    cid4->pid4->liquid,0.50
+->move_container("cid2","pid2","pid1")
+  state 19 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,2,3.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,1,1.50,{glass,metal,plastic}
+    pid4->DRAINING:2,1,0.50,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid3->glass,1.50
+    cid4->pid4->liquid,0.50
+->move_container("cid3","pid3","pid2")
+  state 20 e13: phase does not expect this container material
+->move_container("cid3","pid3","pid1")
+  state 21 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,4.50,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,1,0.50,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid1->glass,1.50
+    cid4->pid4->liquid,0.50
+->move_container("cid4","pid4","pid2")
+  state 22 e13: phase does not expect this container material
+->move_container("cid4","pid4","pid3")
+  state 23 e13: phase does not expect this container material
+->move_container("cid4","pid4","pid1")
+  state 24 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,4,5.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid1->glass,1.50
+    cid4->pid1->liquid,0.50
+->remove_container("cid4")
+  state 25 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,3,4.50,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+    cid3->pid1->glass,1.50
+->remove_container("cid3")
+  state 26 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,2,3.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+    cid2->pid1->plastic,1.00
+->remove_container("cid2")
+  state 27 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,1,2.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,2.00
+->remove_container("cid1")
+  state 28 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid1->STORING:4,0,0.00,{glass,metal,plastic,liquid}
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid1")
+  state 29 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid2->MELTING:1,0,0.00,{metal,plastic}
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid2")
+  state 30 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid3->WASHING:3,0,0.00,{glass,metal,plastic}
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid3")
+  state 31 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    pid4->DRAINING:2,0,0.00,{liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid4")
+  state 32 ok
+  max_phase_radiation: 5.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity

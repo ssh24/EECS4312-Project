@@ -1,0 +1,84 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(4,2)
+  state 1 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_phase("p1","packing",4,<<glass, metal, plastic, liquid>>)
+  state 2 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,0,0.00,{glass,metal,plastic,liquid}
+  containers: cid->pid->material,radioactivity
+->new_phase("p2","crushing",3,<<glass, metal, plastic>>)
+  state 3 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,0,0.00,{glass,metal,plastic,liquid}
+    p2->crushing:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_container("c1",[glass, 1.2],"p1")
+  state 4 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,1,1.20,{glass,metal,plastic,liquid}
+    p2->crushing:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    c1->p1->glass,1.20
+->new_container("c2",[plastic, 1.5],"p1")
+  state 5 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,2,2.70,{glass,metal,plastic,liquid}
+    p2->crushing:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    c1->p1->glass,1.20
+    c2->p1->plastic,1.50
+->new_container("c3",[metal, 0.5],"p2")
+  state 6 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,2,2.70,{glass,metal,plastic,liquid}
+    p2->crushing:3,1,0.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    c1->p1->glass,1.20
+    c2->p1->plastic,1.50
+    c3->p2->metal,0.50
+->remove_container("c1")
+  state 7 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,1,1.50,{glass,metal,plastic,liquid}
+    p2->crushing:3,1,0.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    c2->p1->plastic,1.50
+    c3->p2->metal,0.50
+->remove_container("c2")
+  state 8 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,0,0.00,{glass,metal,plastic,liquid}
+    p2->crushing:3,1,0.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    c3->p2->metal,0.50
+->remove_container("c3")
+  state 9 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p1->packing:4,0,0.00,{glass,metal,plastic,liquid}
+    p2->crushing:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->remove_phase("p1")
+  state 10 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+    p2->crushing:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->remove_phase("p2")
+  state 11 ok
+  max_phase_radiation: 4.00, max_container_radiation: 2.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity

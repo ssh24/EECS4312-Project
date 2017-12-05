@@ -1,0 +1,53 @@
+-- this will test mainly moving containers multiple times between several phases
+-- This is a more complex scenario than at1.txt
+
+new_phase("pid1", "STORING", 4, <<glass, metal, plastic, liquid>>)
+new_phase("pid2", "MELTING", 1, <<metal, plastic>>)
+new_phase("pid3", "WASHING", 3, <<glass, metal, plastic>>)
+new_phase("pid4", "DRAINING", 2, <<liquid>>)
+
+new_tracker(0, 0)
+new_tracker(5, 2)
+
+-- store all materials first
+new_container("cid1", [metal,   2.0], "pid1")
+new_container("cid2", [plastic,   1], "pid1")
+new_container("cid3", [glass,   1.5], "pid1")
+new_container("cid4", [liquid,   0.5], "pid1")
+
+-- move containers around
+-- first wash the solids
+move_container("cid1", "pid1", "pid3")
+move_container("cid2", "pid1", "pid3")
+move_container("cid3", "pid1", "pid3")
+
+-- drain the liquid
+move_container("cid4", "pid1", "pid4")
+
+-- now melt all solids one by one and then store them 
+move_container("cid1", "pid3", "pid2")
+move_container("cid2", "pid3", "pid2") -- this should give error because only one solid can be melted at a time
+move_container("cid1", "pid2", "pid1")
+move_container("cid2", "pid3", "pid2")
+move_container("cid2", "pid2", "pid1")
+move_container("cid3", "pid3", "pid2") -- cannot move this to 2 because it cannot be melted
+move_container("cid3", "pid3", "pid1") -- so move it to storage phase
+
+-- finally move the liquid back to storing phase
+move_container("cid4", "pid4", "pid2") -- cannot melt or wash liquid
+move_container("cid4", "pid4", "pid3")
+move_container("cid4", "pid4", "pid1")
+
+-- and remove all materials when done
+remove_container("cid4")
+remove_container("cid3")
+remove_container("cid2")
+remove_container("cid1")
+
+-- remove all phases and Finish
+remove_phase("pid1")
+remove_phase("pid2")
+remove_phase("pid3")
+remove_phase("pid4")
+
+

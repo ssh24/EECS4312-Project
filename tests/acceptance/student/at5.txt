@@ -1,0 +1,89 @@
+-- this tests some errors as well as adding several containers, moving some , and removing all containers
+-- This specifically tests removing multiple containers and phases
+
+new_container(" cid0", [metal,   3.0], "pid11")
+new_container("cid0", [metal,   3.0], "pid11")
+new_container("cid0", [metal,   -3.0], "pid11")
+new_container("cid0", [metal,   3.0], "pid11")
+
+new_tracker(15, 5)
+new_tracker(15, 15)
+
+new_phase("pid1", "STORING", 4, <<glass, metal, plastic, liquid>>)
+new_phase("pid2", "MELTING", 10, <<glass, metal, plastic>>)
+new_phase("pid3", "WASHING", 3, <<glass, metal, plastic>>)
+new_phase("pid4", "DRAINING", 2, <<liquid>>)
+
+new_tracker(10, 5)
+
+remove_phase("pid2")
+
+new_container("cid1", [metal,   3.0], "pid11")
+new_container("cid1", [metal,   3.0], "pid4")
+new_container("cid1", [metal,   3.0], "pid3")
+new_container("cid2", [plastic,   3.0], "pid3")
+new_container("cid3", [glass,   5.0], "pid3")
+new_container("cid3", [glass,   4], "pid3")
+
+new_container("cid4", [liquid,   5], "pid4")
+new_container("cid5", [liquid,   5], "pid4")
+new_container("cid6", [metal,   5], "pid4")
+new_container("cid5", [glass,   -5], "pid4")
+new_container("cid6", [plastic,   5], "pid4")
+
+new_container("cid7", [plastic,   5], "pid1")
+new_container("cid8", [metal,   1], "pid1")
+new_container("cid9", [glass,   2], "pid1")
+new_container("cid10", [liquid,   1.9], "pid1")
+
+new_phase("pid5", "DRAINING", 2, <<liquid>>)
+
+remove_phase("pid1")
+remove_phase("cid1")
+
+remove_container("cid2")
+
+move_container("cid10", "pid1", "pid3")
+move_container("cid7", "pid1", "pid3")
+move_container("cid8", "pid1", "pid3")
+
+
+new_container("cid11", [liquid,   1.9], "pid1")
+new_container("cid11", [liquid,   1.09], "pid1")
+
+new_container("cid21", [liquid,   1.09], "pid1")
+
+remove_container("cid7")
+
+new_container("cid21", [liquid,   5.1], "pid1")
+new_container("cid21", [liquid,   5.01], "pid1")
+new_container("cid39", [liquid,   4.01], "pid1")
+
+remove_phase("cid1")
+remove_phase("pid1")
+
+-- now remove everything
+remove_container("cid1")
+remove_container("cid2")
+remove_container("cid3")
+remove_container("cid4")
+remove_container("cid5")
+remove_container("cid6")
+remove_container("cid7")
+remove_container("cid8")
+remove_container("cid9")
+remove_container("cid10")
+remove_container("cid11")
+
+remove_phase("pid1")
+
+remove_container("cid39")
+
+remove_phase("pid1")
+remove_phase("pid2")
+remove_phase("pid3")
+remove_phase("pid4")
+
+new_tracker( 0, 0)
+
+

@@ -1,0 +1,134 @@
+\begin{figure}[!t]
+\caption{TLA Specification of EHealth}
+\label{fig:tla1}
+\tlatex
+\setboolean{shading}{true}
+\@x{}\moduleLeftDash\@xx{ {\MODULE} ehealth3}\moduleRightDash\@xx{}%
+\@pvspace{8.0pt}%
+\@x{ {\EXTENDS} Naturals ,\, TLC}%
+\@x{ {\CONSTANTS}}%
+\@x{\@s{24.59} M\@s{4.1}}%
+\@y{\@s{0}%
+ set of medications
+}%
+\@xx{}%
+\@x{\@s{20.5} ,\, P\@s{4.88}}%
+\@y{\@s{0}%
+ set of patients
+}%
+\@xx{}%
+\@x{ {\VARIABLES}}%
+\@x{\@s{20.5} prescriptions}%
+\@x{\@s{16.4} ,\, interactions}%
+\@x{ vars \.{\defeq} {\langle} prescriptions ,\, interactions {\rangle}}%
+\@x{ TypeOK \.{\defeq}}%
+\@x{\@s{16.4} \.{\land}\@s{9.74} prescriptions \.{\subseteq} P \.{\times} M}%
+\@x{\@s{16.4}}%
+\@y{\@s{0}%
+ dangerous interactions
+}%
+\@xx{}%
+\@x{\@s{16.4} \.{\land} interactions\@s{4.1} \.{\subseteq} M \.{\times} M}%
+\@x{ Init \.{\defeq}}%
+\@x{\@s{16.4} \.{\land} prescriptions \.{=} \{ \}}%
+\@x{\@s{16.4} \.{\land} interactions \.{=} \{ \}}%
+\@x{}%
+\@y{\@s{0}%
+ Invariants
+}%
+\@xx{}%
+\@pvspace{8.0pt}%
+\@x{ Symmetry \.{\defeq} \A\, m1 ,\, m2 \.{\in} M \.{:}}%
+\@x{\@s{8.2} {\langle} m1 ,\, m2 {\rangle} \.{\in} interactions \.{\equiv}}%
+\@x{\@s{8.2} {\langle} m2 ,\, m1 {\rangle} \.{\in} interactions}%
+\@pvspace{8.0pt}%
+\@x{}%
+\@y{\@s{0}%
+ A medication does not interact with itself
+}%
+\@xx{}%
+\@x{ Irreflexive \.{\defeq} \A\, m \.{\in} M \.{:}}%
+\@x{\@s{8.2} {\langle} m ,\, m {\rangle} \.{\notin} interactions}%
+\@pvspace{8.0pt}%
+\@x{}%
+\@y{\@s{0}%
+ All prescriptions are safe
+}%
+\@xx{}%
+\@x{}%
+\@y{\@s{0}%
+ \ensuremath{i.e}. do not have dangerous interactions
+}%
+\@xx{}%
+ \@x{ SafePrescriptions \.{\defeq} \A\, m1 ,\, m2 \.{\in} M ,\, p \.{\in} P
+ \.{:}}%
+ \@x{\@s{16.4} {\langle} m1 ,\, m2 {\rangle} \.{\in} interactions
+ \.{\implies}}%
+\@x{\@s{27.51} {\lnot} ( {\langle} p ,\, m1 {\rangle} \.{\in} prescriptions}%
+\@x{\@s{16.4} \.{\land} {\langle} p ,\, m2 {\rangle} \.{\in} prescriptions )}%
+\@pvspace{16.0pt}%
+\@x{}\midbar\@xx{}%
+\@x{}%
+\end{figure}
+
+\begin{figure}[!t]
+\caption{TLA Specification of EHealth (cont.}
+\label{fig:tla2}
+\@x{}\midbar\@xx{}%
+
+\@y{\@s{0}%
+ Some of the Actions
+}%
+ \\$\cdots$
+\@xx{}%
+\@x{ add\_interaction ( m1 ,\, m2 ) \.{\defeq}}%
+\@x{\@s{8.2} {\IF}}%
+\@x{\@s{16.4} \.{\land} m1 \.{\in} M}%
+\@x{\@s{16.4} \.{\land} m2 \.{\in} M}%
+\@x{\@s{16.4} \.{\land} m1 \.{\neq} m2}%
+ \@x{\@s{16.4} \.{\land} {\langle} m1 ,\, m2 {\rangle} \.{\notin}
+ interactions}%
+ \@x{\@s{16.4} \.{\land} \A\, p \.{\in} P \.{:}\@s{4.1} {\lnot} ( {\langle} p
+ ,\, m1 {\rangle} \.{\in} prescriptions}%
+ \@x{\@s{84.60} \.{\land} {\langle} p ,\, m2 {\rangle} \.{\in} prescriptions
+ )}%
+\@x{\@s{8.2} \.{\THEN}}%
+\@x{\@s{16.4} \.{\land} interactions \.{'} \.{=}}%
+ \@x{\@s{31.61} interactions \.{\cup} \{ {\langle} m1 ,\, m2 {\rangle} ,\,
+ {\langle} m2 ,\, m1 {\rangle} \}}%
+\@x{\@s{16.4} \.{\land} {\UNCHANGED} prescriptions}%
+\@x{\@s{8.2} \.{\ELSE}}%
+ \@x{\@s{16.4} \.{\land} {\UNCHANGED} {\langle} prescriptions ,\, interactions
+ {\rangle}}%
+ \@x{\@s{16.4} \.{\land} Print ( {\langle}\@w{add\_interaction} ,\,\@w{e1}
+ {\rangle} ,\, {\TRUE} )}%
+\@pvspace{8.0pt}%
+\@x{ add\_prescription ( p ,\, m ) \.{\defeq}}%
+\@x{\@s{8.2} {\IF}}%
+\@x{\@s{16.4} \.{\land} p\@s{3.20} \.{\in} P}%
+\@x{\@s{16.4} \.{\land} m \.{\in} M}%
+\@x{\@s{16.4} \.{\land} {\langle} p ,\, m {\rangle} \.{\notin} prescriptions}%
+ \@x{\@s{16.4} \.{\land} \A\, x \.{\in} M \.{:}\@s{8.2} {\langle} p ,\, x
+ {\rangle} \.{\in} prescriptions \.{\implies}}%
+\@x{\@s{31.61} {\langle} x ,\, m {\rangle} \.{\notin} interactions}%
+\@x{\@s{8.2} \.{\THEN}}%
+ \@x{\@s{16.4} \.{\land} prescriptions \.{'} \.{=} prescriptions \.{\cup} \{
+ {\langle} p ,\, m {\rangle} \}}%
+\@x{\@s{16.4} \.{\land} {\UNCHANGED} interactions}%
+\@x{\@s{8.2} \.{\ELSE}}%
+ \@x{\@s{16.4} \.{\land} {\UNCHANGED} {\langle} prescriptions ,\, interactions
+ {\rangle}}%
+ \@x{\@s{16.4} \.{\land} Print ( {\langle}\@w{add\_interaction} ,\,\@w{e2}
+ {\rangle} ,\, {\TRUE} )}%
+\@pvspace{8.0pt}%
+\@x{ Next \.{\defeq}}%
+ \@x{\@s{16.4} \.{\lor} \E\, m1 ,\, m2 \.{\in} M \.{:} add\_interaction ( m1
+ ,\, m2 )}%
+ \@x{\@s{16.4} \.{\lor} \E\, m \.{\in} M ,\, p \.{\in} P \.{:}
+ add\_prescription ( p ,\, m )}%
+\\$\cdots$
+\@pvspace{8.0pt}%
+\@x{ Spec \.{\defeq} Init \.{\land} {\Box} [ Next ]_{ vars}}%
+\@x{}\bottombar\@xx{}%
+\@pvspace{8.0pt}%
+\end{figure}

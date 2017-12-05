@@ -1,0 +1,170 @@
+-- This will test all the errors from each of the commands in the tracker specification
+
+-- trying to add container when there are no phases
+new_container(" cid0", [metal,   3.0], "pid11")
+
+-- testing new_tracker errors
+new_tracker(-0.0001, 10.0)
+new_tracker(-0.1, 12.0)
+new_tracker(-0.1, -0.1)
+new_tracker(0, -12.0)
+new_tracker(0, 0)
+new_tracker(1, 12)
+new_tracker(12, 12.0001)
+new_tracker(12.000001, 12)
+new_tracker(15, 5)
+
+-- testing new phase errors 
+new_phase("-pid0", "compacting", -1000, <<glass, metal, plastic>>)
+new_phase("!pid0", "!compacting", 2, <<glass, metal, plastic>>)
+new_phase("Pid0", "@compacting", 2, <<glass, metal, plastic>>)
+new_phase("Pid0", " com pacting", -22, <<glass, metal, plastic>>)
+new_phase("P_id0", "P_ompacting", 2, <<glass, metal, plastic>>)
+new_phase("P_id0", "_ompacting", 2, <<glass>>)
+new_phase("pid1", "_ompacting", -2, <<glass, metal, plastic>>)
+new_phase("pid1", "CRUSHING", -2, <<glass, metal, plastic>>)
+new_phase("pid1", "CRUSHING", 0, <<>>)
+new_phase("pid1", "CRUSHING", 3, <<glass>>)
+new_phase(" pid2", "CRUSHING", 2, <<metal, plastic>>)
+new_phase("pid2", "WASHING", 2, <<metal, plastic>>)
+
+
+remove_phase("P_id0 ") -- remove one of the phases
+remove_phase(" P_id0 ") -- remove one of the phases
+remove_phase("P_id0") -- remove one of the phases
+
+new_phase("pid3", "WASHING", 2, <<glass, metal, plastic, liquid>>)
+new_phase("pid3", "MELTING", 10, <<glass, metal, plastic>>)
+new_phase("pid4", "MELTING", 10, <<glass, metal, plastic>>)
+
+
+-- testing adding a new tracke now that the phases have been added 
+new_tracker(-0.0001, 10.0)
+new_tracker(-0.1, 12.0)
+new_tracker(-0.1, -0.1)
+new_tracker(0, -12.0)
+new_tracker(0, 0)
+new_tracker(1, 12)
+new_tracker(12, 12.0001)
+new_tracker(12.000001, 12)
+new_tracker(20, 4)
+
+-- testing new_container errors
+new_container(" cid0", [metal,   3.0], "pid11")
+new_container("cid0", [metal,   -3.0], "pid11")
+new_container("cid0", [metal,   -3.0], "pid1")
+-- new_container("cid0", [metal,   -3.0], "pid2") -- this should be an error beacuse container material radioactivity should not be negative
+new_container("cid0", [metal,   0.0], "pid2")
+new_container("cid1", [glass,   11], "pid2")
+new_container("cid1", [plastic,   11], "pid2")
+new_container("cid1", [plastic,   4], "pid2")
+new_container("cid2", [plastic,   4], "pid3")
+
+-- testing adding a new tracke now that the phases have been added 
+new_tracker(-0.0001, 10.0)
+new_tracker(-0.1, 12.0)
+new_tracker(-0.1, -0.1)
+new_tracker(0, -12.0)
+new_tracker(0, 0)
+new_tracker(1, 12)
+new_tracker(12, 12.0001)
+new_tracker(12.000001, 12)
+new_tracker(20, 4)
+
+
+remove_phase("pid1") -- remove one of the phases
+remove_phase("spid1") -- remove one of the phases
+
+
+new_container("cid2", [plastic,   4], "pid3") 
+new_container("cid3", [plastic,   4], "pid2") 
+new_container("cid3", [metal,   4.01], "pid5") 
+new_container("cid3", [metal,   4.000001], "pid5")
+new_container("cid3", [metal,   4.0], "pid3")
+new_container("cid4", [liquid,   4.0], "pid3")
+new_container("cid4", [metal,   4.0], "pid4")
+new_container("cid5", [liquid,   4.0], "pid4")
+new_container("cid5", [glass,  3.0], "pid4")
+new_container("cid6", [glass,  300.0], "pid2")
+new_container("cid6", [glass,  -121.0], "pid3")
+new_container("cid6", [glass,  4.0], "pid4")
+new_container("cid7", [metal,  3.9], "pid4")
+
+-- testing the move command
+move_container (" cid0", "pid1", "pid2")
+move_container ("cid1", "pid1", "pid2")
+move_container ("cid1", "pid2", "pid2")
+move_container ("cid1", "pid2", "pid2")
+move_container ("cid1", "pid2", "pid1")
+move_container ("cid1", " pid2", "pid1")
+move_container ("cid1", "pid2", "!pid1")
+move_container ("cid1", "pid1", "pid1")
+move_container ("cid1", "pid2", "pid3")
+move_container ("cid1", "pid2", "pid4")
+move_container ("cid2", "pid2", "pid1")
+move_container ("cid2", "pid3", "pid1")
+move_container ("cid2", "pid3", "pid4")
+move_container ("cid0", "pid3", "pid4")
+move_container ("cid0", "pid2", "pid4")
+
+new_container("cid8", [metal,  3.9], "pid4")
+
+move_container ("cid5", "pid4", "pid1")
+move_container ("cid5", "pid4", "pid1")
+move_container ("cid6", "pid4", "pid1")
+
+-- trying to remove containers whos id doesnt exist
+remove_container ("cid")
+remove_container (" cid")
+
+-- trying to remove ids that dont exist
+remove_phase("pid10")  
+remove_phase("spid1121") 
+-- trying to remove ids that do exists but there are containers in tracker
+remove_phase("pid1")  
+remove_phase("pid2")
+remove_phase("pid2")
+remove_phase("pid3")
+remove_phase("pid4")
+remove_phase("pid2")
+
+-- remove all containers except one
+remove_container ("cid0")
+remove_container ("cid1")
+remove_container ("cid2")
+remove_container ("cid3")
+remove_container ("cid4")
+remove_container ("cid5")
+remove_container ("cid6")
+remove_container ("cid70")
+
+-- trying to remove ids that do exists but there are containers in tracker
+remove_phase("pid1")  
+remove_phase("pid2")
+remove_phase("pid2")
+remove_phase("pid3")
+remove_phase("pid4")
+
+remove_container ("cid7")
+
+-- testing new_tracker errors
+new_tracker(-0.0001, -0.0001)
+new_tracker(0.0001, -0.0001)
+new_tracker(0.0001, 0.00015)
+new_tracker(0.0001, 0.00015)
+
+-- remove all phases after all containers have been removed
+remove_phase(" pid1")  
+remove_phase("pid1")
+remove_phase("pid2")
+remove_phase("pid3")
+remove_phase("pid4")
+remove_phase("pid2")
+
+new_tracker(0.01, 0.01)
+
+new_tracker(0.0, 0.00)
+
+
+
+
